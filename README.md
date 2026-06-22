@@ -81,7 +81,8 @@ Exemplos:
 * products
 * categories
 
- <img src="images/postgres.png">
+![teste](imagens_bronze/Bronze_1.png)
+![teste](imagens_postgres/postgres.png)
 
 ---
 
