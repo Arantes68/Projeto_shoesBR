@@ -1,29 +1,29 @@
-# 📊 Analytics Engineering Pipeline com dbt Cloud e PostgreSQL
+# 📊 Projeto ShoesBR com dbt Core
 
-Pipeline analítico construído com **dbt Core**, **dbt Cloud** e **PostgreSQL**, aplicando conceitos modernos de Analytics Engineering, modelagem de dados e transformação em camadas.
+Pipeline analítico construído com **PostgreSQL**, **dbt Core** e **dbt Cloud**, aplicando conceitos modernos de **Analytics Engineering**, modelagem de dados e transformação em camadas.
 
-Este projeto demonstra na prática conceitos de Engenharia de Dados, como ingestão, transformação, documentação e governança de dados utilizando uma arquitetura analítica baseada em Landing, Staging, Intermediate e Marts.
+Este projeto demonstra na prática a construção de um ambiente analítico completo utilizando versionamento com GitHub, documentação automatizada, testes de qualidade e Data Lineage através do dbt.
 
 ---
 
 # 🎯 Objetivo
 
-Construir um pipeline analítico completo utilizando PostgreSQL e dbt, transformando dados operacionais em informações confiáveis para consumo por dashboards, relatórios e análises de negócio.
+Construir um pipeline analítico organizado em camadas, transformando dados operacionais em informações confiáveis para consumo por dashboards, relatórios e análises de negócio.
 
 ---
 
 # 🚀 Tecnologias Utilizadas
 
-- Python
-- PostgreSQL
-- AWS RDS
-- dbt Core
-- dbt Cloud
-- SQL
-- Git
-- GitHub
-- VS Code
-- DBeaver
+* Python
+* PostgreSQL
+* AWS RDS
+* dbt Core
+* dbt Cloud
+* SQL
+* Git
+* GitHub
+* VS Code
+* DBeaver
 
 ---
 
@@ -37,16 +37,16 @@ PostgreSQL
 ├── public (Fonte Transacional Simulada)
 │
 ▼
-Landing (Dados Brutos)
+Landing (Dados Brutos / Bronze)
 │
 ▼
-Staging (Limpeza e Padronização)
+Staging (Limpeza e Padronização / Silver)
 │
 ▼
-Intermediate (Regras de Negócio)
+Intermediate (Regras de Negócio / Silver)
 │
 ▼
-Marts (Dados Analíticos)
+Marts (Consumo Analítico / Gold)
 │
 ▼
 Dashboards / Relatórios
@@ -54,127 +54,115 @@ Dashboards / Relatórios
 
 ---
 
-# 📖 Entendendo as Camadas
+# 🖼️ Arquitetura da Solução
 
-## 🐘 PostgreSQL (Fonte Transacional)
+> Inserir aqui uma imagem da arquitetura do pipeline.
 
-O schema `public` simula um ambiente transacional contendo os dados operacionais utilizados como entrada para o pipeline.
-
-Exemplos:
-
-- customers
-- products
-- sales
-- refunds
+```markdown
+![Arquitetura](images/arquitetura.png)
+```
 
 ---
 
-## 📥 Landing (Dados Brutos)
+# 📥 Fonte de Dados
 
-Primeira camada do pipeline.
+Os dados de origem estão armazenados no schema:
 
-Responsável por armazenar uma cópia dos dados provenientes da origem sem alterações significativas.
+```sql
+public
+```
+
+Este schema simula um ambiente transacional contendo informações operacionais utilizadas como entrada para o pipeline analítico.
+
+Exemplos:
+
+* customers
+* orders
+* products
+* categories
+
+---
+
+# 🧱 Camadas do Projeto
+
+## 📥 Landing
+
+Responsável por armazenar uma cópia dos dados de origem.
 
 Objetivos:
 
-- Preservar dados originais
-- Garantir rastreabilidade
-- Facilitar auditorias
+* Preservar dados brutos
+* Garantir rastreabilidade
+* Facilitar auditorias
 
-Exemplo:
+---
+
+## 🧹 Staging
+
+Responsável pela limpeza e padronização dos dados.
+
+Principais transformações:
+
+* Padronização de nomes
+* Conversão de tipos
+* Tratamento de nulos
+* Correção de inconsistências
+
+Modelos:
 
 ```text
-public.sales
-      │
-      ▼
-landing.sales
+stg_customers
+stg_orders
+stg_products
 ```
 
 ---
 
-## 🧹 Staging (Limpeza e Padronização)
+## ⚙️ Intermediate
 
-Responsável pela preparação dos dados para análise.
-
-Nesta camada os modelos são materializados como **Views**, seguindo boas práticas do dbt.
-
-Exemplos:
-
-```text
-stg_clientes
-stg_produtos
-stg_vendas
-stg_estorno
-```
-
-Transformações realizadas:
-
-- Padronização de nomes
-- Conversão de tipos
-- Tratamento de nulos
-- Correção de inconsistências
-
-Exemplo:
-
-Antes:
-
-```sql
-NomeCliente
-```
-
-Depois:
-
-```sql
-nome_cliente
-```
-
----
-
-## ⚙️ Intermediate (Regras de Negócio)
-
-Camada responsável pela consolidação das informações e aplicação de regras de negócio.
-
-Exemplos:
-
-```text
-int_vendas_clientes
-int_metricas_vendas
-```
+Camada responsável pelas regras de negócio.
 
 Principais atividades:
 
-- JOIN entre tabelas
-- Criação de métricas
-- Consolidação de dados
-- Aplicação de regras de negócio
+* JOIN entre tabelas
+* Consolidação de informações
+* Criação de métricas
+* Reutilização de lógica
+
+Modelos:
+
+```text
+int_customer_orders
+int_sales_metrics
+```
 
 ---
 
-## 📊 Marts (Consumo Analítico)
+## 📊 Marts
 
 Camada final do pipeline.
 
 Responsável por disponibilizar dados prontos para consumo analítico.
 
-Exemplos:
+Modelos:
 
 ```text
-mart_vendas
-mart_clientes
-mart_produtos
+mart_sales
+mart_customers
+mart_products
 ```
 
 Consumidores:
 
-- Power BI
-- Excel
-- Tableau
-- Analistas de Dados
-- Cientistas de Dados
+* Power BI
+* Excel
+* Tableau
+* Analistas de Dados
+* Cientistas de Dados
 
 ---
 
-# ☁️ Arquitetura das Ferramentas
+# ☁️ Fluxo das Ferramentas
 
 ```text
 VS Code
@@ -192,14 +180,76 @@ dbt Cloud
 PostgreSQL (AWS RDS)
 ```
 
-Fluxo do projeto:
+---
 
-1. Desenvolvimento dos modelos no VS Code.
-2. Versionamento através do Git.
-3. Publicação no GitHub.
-4. Integração automática com dbt Cloud.
-5. Execução das transformações no PostgreSQL.
-6. Geração automática de documentação e Data Lineage.
+# 🔍 Qualidade dos Dados
+
+O projeto utiliza testes nativos do dbt para validação dos dados.
+
+Testes aplicados:
+
+* Not Null
+* Unique
+* Relationships
+
+Benefícios:
+
+* Maior confiabilidade dos dados
+* Identificação precoce de falhas
+* Garantia da qualidade analítica
+
+---
+
+# 📖 Documentação Automatizada
+
+O dbt permite gerar documentação automaticamente a partir dos modelos e arquivos YAML.
+
+Comandos utilizados:
+
+```bash
+dbt docs generate
+```
+
+```bash
+dbt docs serve
+```
+
+A documentação inclui:
+
+* Modelos
+* Colunas
+* Dependências
+* Descrições
+* Data Lineage
+
+---
+
+# 🔗 Data Lineage
+
+Uma das principais funcionalidades do dbt é a visualização automática da linhagem dos dados.
+
+```text
+public.orders
+      │
+      ▼
+landing.orders
+      │
+      ▼
+stg_orders
+      │
+      ▼
+int_sales
+      │
+      ▼
+mart_sales
+```
+
+Benefícios:
+
+* Governança
+* Rastreabilidade
+* Análise de impacto
+* Facilidade de manutenção
 
 ---
 
@@ -231,93 +281,20 @@ projeto-shoesbr/
 
 ---
 
-# 🔍 Qualidade dos Dados
-
-O projeto utiliza testes nativos do dbt para validação dos dados.
-
-Testes aplicados:
-
-- Not Null
-- Unique
-- Relationships
-
-Benefícios:
-
-- Maior confiabilidade dos dados
-- Identificação precoce de falhas
-- Garantia da qualidade analítica
-
----
-
-# 📖 Documentação Automatizada
-
-O dbt permite gerar documentação automaticamente a partir dos modelos e arquivos YAML.
-
-Comandos utilizados:
-
-```bash
-dbt docs generate
-```
-
-```bash
-dbt docs serve
-```
-
-A documentação inclui:
-
-- Modelos
-- Colunas
-- Dependências
-- Descrições
-- Data Lineage
-
----
-
-# 🔗 Data Lineage
-
-Uma das principais funcionalidades do dbt é a visualização automática da linhagem dos dados.
-
-Exemplo:
-
-```text
-public.sales
-      │
-      ▼
-landing.sales
-      │
-      ▼
-stg_vendas
-      │
-      ▼
-int_metricas_vendas
-      │
-      ▼
-mart_vendas
-```
-
-Benefícios:
-
-- Governança
-- Rastreabilidade
-- Análise de impacto
-- Facilidade de manutenção
-
----
-
 # 📚 Conceitos Aplicados
 
-- Analytics Engineering
-- Engenharia de Dados
-- PostgreSQL
-- SQL
-- dbt Core
-- dbt Cloud
-- AWS RDS
-- Data Modeling
-- Data Lineage
-- Data Quality
-- Data Governance
-- Git/GitHub
+* Analytics Engineering
+* Engenharia de Dados
+* PostgreSQL
+* SQL
+* dbt Core
+* dbt Cloud
+* AWS RDS
+* Data Modeling
+* Data Lineage
+* Data Quality
+* Data Governance
+* Git/GitHub
 
 ---
 
@@ -325,14 +302,13 @@ Benefícios:
 
 Durante o desenvolvimento deste projeto foram praticados conceitos amplamente utilizados em ambientes corporativos:
 
-- Construção de pipelines analíticos
-- Modelagem de dados com dbt
-- Integração GitHub + dbt Cloud
-- Organização de modelos em camadas
-- Testes automatizados
-- Governança de dados
-- Documentação técnica
-- Versionamento de projetos de dados
+* Construção de pipelines analíticos
+* Modelagem de dados com dbt
+* Integração GitHub + dbt Cloud
+* Organização de modelos em camadas
+* Testes automatizados
+* Governança de dados
+* Documentação técnica
 
 ---
 
@@ -340,7 +316,7 @@ Durante o desenvolvimento deste projeto foram praticados conceitos amplamente ut
 
 Este projeto demonstra a construção de um pipeline analítico moderno utilizando PostgreSQL, dbt Core e dbt Cloud, aplicando boas práticas de Analytics Engineering para transformar dados operacionais em informações confiáveis e prontas para consumo analítico.
 
-A arquitetura em camadas (Landing → Staging → Intermediate → Marts) proporciona organização, escalabilidade, reutilização de código e governança dos dados, simulando um ambiente próximo ao encontrado em empresas orientadas por dados.
+A arquitetura em camadas (**Landing → Staging → Intermediate → Marts**) proporciona organização, escalabilidade, reutilização de código e governança dos dados.
 
 ---
 
@@ -359,5 +335,3 @@ A arquitetura em camadas (Landing → Staging → Intermediate → Marts) propor
 ✅ Documentação automatizada
 
 ✅ Boas práticas de Analytics Engineering
-
-✅ Organização seguindo padrões de mercado
