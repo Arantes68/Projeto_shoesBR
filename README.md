@@ -233,6 +233,7 @@ A documentação inclui:
 * Data Lineage
 
 ![teste](dbt_docs_1.png)
+
 ![teste](dbt_docs_2.png)
 
 ---
