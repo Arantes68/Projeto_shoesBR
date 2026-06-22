@@ -56,11 +56,7 @@ Dashboards / Relatórios
 
 # 🖼️ Arquitetura da Solução
 
-> Inserir aqui uma imagem da arquitetura do pipeline.
-
-```markdown
-![Arquitetura](images/arquitetura.png)
-```
+![teste](arquitetura_solucao.png)
 
 ---
 
@@ -201,6 +197,9 @@ Testes aplicados:
 * Not Null
 * Unique
 * Relationships
+
+![teste](teste_qualidade.png)
+
 
 Benefícios:
 
