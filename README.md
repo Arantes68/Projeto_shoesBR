@@ -232,8 +232,8 @@ A documentação inclui:
 * Descrições
 * Data Lineage
 
-![teste](dbt_docs_1)
-![teste](dbt_docs_2)
+![teste](dbt_docs_1.png)
+![teste](dbt_docs_2.png)
 
 ---
 
