@@ -81,8 +81,7 @@ Exemplos:
 * products
 * categories
 
-![teste](imagens_bronze/Bronze_1.png)
-![teste](imagens_postgres/postgres.png)
+![teste](postgres.png)
 
 ---
 
