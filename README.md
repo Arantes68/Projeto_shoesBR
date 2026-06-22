@@ -81,6 +81,8 @@ Exemplos:
 * products
 * categories
 
+ <img src="images/postgres.png">
+
 ---
 
 # 🧱 Camadas do Projeto
