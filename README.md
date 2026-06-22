@@ -97,6 +97,8 @@ Objetivos:
 * Garantir rastreabilidade
 * Facilitar auditorias
 
+![teste](landing_postgres.png)
+
 ---
 
 ## 🧹 Staging
@@ -118,6 +120,8 @@ stg_orders
 stg_products
 ```
 
+![teste](staging_vscode.png)
+
 ---
 
 ## ⚙️ Intermediate
@@ -137,6 +141,8 @@ Modelos:
 int_customer_orders
 int_sales_metrics
 ```
+
+![teste](intermediate_vscode.png)
 
 ---
 
@@ -161,6 +167,8 @@ Consumidores:
 * Tableau
 * Analistas de Dados
 * Cientistas de Dados
+
+![teste](marts_vscode.png)
 
 ---
 
@@ -223,6 +231,9 @@ A documentação inclui:
 * Dependências
 * Descrições
 * Data Lineage
+
+![teste](dbt_docs_1)
+![teste](dbt_docs_2)
 
 ---
 
